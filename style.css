@@ -1,0 +1,10 @@
+.cards {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card {
+    background-color: grey;
+    width: 100px;
+    height: 100px;
+}
