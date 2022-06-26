@@ -1,10 +1,12 @@
 .cards {
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    column-gap: 10px;
 }
 
 .card {
     background-color: grey;
+    margin-top: 10px;
     width: 100px;
     height: 100px;
 }
