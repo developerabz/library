@@ -1,11 +1,10 @@
 let myLibrary = []
+let idCounter = 0;
 
-function Book() {
-    let book = new Object({
-        title: 'Test Book',
-        author: 'Test Author'
-    })
-    return book
+function Book(title, author) {
+    this.title = title;
+    this.author = author;
+    this.id = idCounter++;
 }
 
 
@@ -13,38 +12,64 @@ function Book() {
 function addBookToLibrary() {
     
     const add = document.querySelector('.add')
-    add.addEventListener('click', () => {
-        myLibrary.push({
-            title: prompt('What is the Book?',''),
-            author: prompt('Who is the author?','')
-        })
+    add.addEventListener('click', function() {
+        let newBookTitle = prompt('What is the title?', '');
+        let newBookAuthor = prompt('What is the author of the book', '');
+        const newBook = new Book(newBookTitle, newBookAuthor);
+        myLibrary.push(newBook);
         console.log(myLibrary)
         
+
+        const cards = document.querySelector('.cards');
+        for (i = 0; i < myLibrary.length; i++) {
+            if (i == newBook.id) {
+                const card = document.createElement('div')
+                card.classList.add('card');
+
+                const cardTitleText = document.createElement('p');
+                cardTitleText.textContent = `Title: ${myLibrary[i].title}`;
+
+                const cardAuthorText = document.createElement('p');
+                cardAuthorText.textContent = `Author: ${myLibrary[i].author}`;
+
+                const cardDeleteButton = document.createElement('button');
+                cardDeleteButton.dataset.idNumber = newBook.id;
+                cardDeleteButton.textContent = 'Delete';
+
+                card.appendChild(cardTitleText);
+                card.appendChild(cardAuthorText);
+                card.appendChild(cardDeleteButton);
+                cards.appendChild(card);
+            }  
+        }
+        console.log(newBook.id)
+    });
+    
+    
+}
+
+function removeBookFromLibrary() {
+    const remove = document.querySelector('.cards')
+
+    remove.addEventListener('click', (ev) => {
         
-    })
-    myLibrary.push(Book())
-    // addBookToScreen()
-    
-    
-    
+        myLibrary.forEach(book => {
+            if (ev.target.dataset.idNumber == book.id) {
+                myLibrary.splice(book.id,1);
+                idCounter = idCounter -1;
+            } 
+        })
+        
+        if (ev.target.textContent == 'Delete') {
+            const card = ev.target.parentElement;
+            card.parentElement.removeChild(card);    
+        }
+    });
 }
 
-function addBookToScreen() {
-    const loopy = myLibrary.forEach(libraryBook => {
-        const cards = document.querySelector('.cards')
-        const card = document.createElement('div')
-        card.classList.add('card')
-        card.textContent = `${libraryBook.title} by ${libraryBook.author}`
-        const btn = document.createElement('button')
-        btn.classList.add('btn')
-        btn.setAttribute('data-index-number', `${libraryBook.title}`)
-        btn.textContent = 'Delete'
-        card.appendChild(btn)
-        cards.appendChild(card)
-        console.log(cards)
-    })
 
-    
-}
+removeBookFromLibrary();
 
-addBookToLibrary()
+
+
+addBookToLibrary();
