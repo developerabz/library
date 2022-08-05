@@ -1,10 +1,11 @@
 let myLibrary = []
 let idCounter = 0;
 
-function Book(title, author) {
+function Book(title, author, pages, readCompleted) {
     this.title = title;
     this.author = author;
-    this.readCompleted = false;
+    this.pages = pages;
+    this.readCompleted = readCompleted;
     this.id = idCounter++;
 }
 
@@ -13,10 +14,14 @@ function Book(title, author) {
 function addBookToLibrary() {
     
     const add = document.querySelector('.add')
-    add.addEventListener('click', function() {
-        let newBookTitle = prompt('What is the title?', '');
-        let newBookAuthor = prompt('What is the author of the book', '');
-        const newBook = new Book(newBookTitle, newBookAuthor);
+    add.addEventListener('click', function(ev) {
+        ev.preventDefault();
+        let newBookTitle = document.getElementById('title').value;
+        let newBookAuthor = document.getElementById('author').value;
+        let newBookPages = document.getElementById('pages').value;
+        let newBookCompleted = document.getElementById('readstat').checked;
+        const newBook = new Book(newBookTitle, newBookAuthor, newBookPages,
+            newBookCompleted);
         myLibrary.push(newBook);
         console.log(myLibrary)
         
@@ -33,6 +38,9 @@ function addBookToLibrary() {
                 const cardAuthorText = document.createElement('p');
                 cardAuthorText.textContent = `Author: ${myLibrary[i].author}`;
 
+                const cardPageRange = document.createElement('p');
+                cardPageRange.textContent = `Pages: ${myLibrary[i].pages}`;
+
                 const cardDeleteButton = document.createElement('button');
                 cardDeleteButton.dataset.idNumber = newBook.id;
                 cardDeleteButton.textContent = 'Delete';
@@ -43,6 +51,7 @@ function addBookToLibrary() {
 
                 card.appendChild(cardTitleText);
                 card.appendChild(cardAuthorText);
+                card.appendChild(cardPageRange);
                 card.appendChild(cardDeleteButton);
                 card.appendChild(cardReadButton);
                 cards.appendChild(card);
