@@ -4,6 +4,7 @@ let idCounter = 0;
 function Book(title, author) {
     this.title = title;
     this.author = author;
+    this.readCompleted = false;
     this.id = idCounter++;
 }
 
@@ -36,9 +37,14 @@ function addBookToLibrary() {
                 cardDeleteButton.dataset.idNumber = newBook.id;
                 cardDeleteButton.textContent = 'Delete';
 
+                const cardReadButton = document.createElement('button');
+                // cardDeleteButton.dataset.idNumber = newBook.id;
+                cardReadButton.textContent = newBook.readCompleted ? 'Read' : 'Not Read';
+
                 card.appendChild(cardTitleText);
                 card.appendChild(cardAuthorText);
                 card.appendChild(cardDeleteButton);
+                card.appendChild(cardReadButton);
                 cards.appendChild(card);
             }  
         }
@@ -67,9 +73,20 @@ function removeBookFromLibrary() {
     });
 }
 
+function readStatus() {
+    const read = document.querySelector('.cards');
+
+    read.addEventListener('click', (ev) => {
+        myLibrary.forEach(book => {
+                book.readCompleted = !book.readCompleted;
+                ev.target.textContent = book.readCompleted ? 'Read' : 'Not Read';
+        })
+    })
+}
+
 
 removeBookFromLibrary();
-
+readStatus();
 
 
 addBookToLibrary();
