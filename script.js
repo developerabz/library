@@ -93,6 +93,20 @@ function readStatus() {
     })
 }
 
+const addBook = document.querySelector('.addbook');
+
+addBook.addEventListener('click', () => {
+    const form = document.getElementById('bookmaker');
+    if (form.style.display === "none") {
+        form.style.display = "block"
+        addBook.textContent = "Hide Book Form"
+    } else {
+        form.style.display = "none"
+        addBook.textContent = "Add Book"
+    }
+    
+})
+
 
 removeBookFromLibrary();
 readStatus();
