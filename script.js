@@ -1,15 +1,23 @@
 let myLibrary = []
 let idCounter = 0;
 
-function Book(title, author, pages, readCompleted) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.readCompleted = readCompleted;
-    this.id = idCounter++;
+// function Book(title, author, pages, readCompleted) {
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.readCompleted = readCompleted;
+//     this.id = idCounter++;
+// }
+
+class Book {
+    constructor (title, author, pages, readCompleted) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.readCompleted = readCompleted;
+        this.id = idCounter++;
+    }
 }
-
-
 
 function addBookToLibrary() {
     
