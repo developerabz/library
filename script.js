@@ -34,14 +34,19 @@ function addBookToLibrary() {
                 const card = document.createElement('div')
                 card.classList.add('card');
 
-                const cardTitleText = document.createElement('p');
-                cardTitleText.textContent = `'${myLibrary[i].title}' by '${myLibrary[i].author}'`;
+                const cardText = document.createElement('section');
 
-                // const cardAuthorText = document.createElement('p');
-                // cardAuthorText.textContent = `Author: ${myLibrary[i].author}`;
+
+                const cardTitleText = document.createElement('h2');
+                cardTitleText.textContent = `${myLibrary[i].title}`;
+
+                const cardAuthorText = document.createElement('p');
+                cardAuthorText.textContent = `${myLibrary[i].author}`;
 
                 const cardPageRange = document.createElement('p');
-                cardPageRange.textContent = `${myLibrary[i].pages} pages read`;
+                cardPageRange.classList.add('pages');
+                const pagesString = myLibrary[i].pages ? 'pages read' : '';
+                cardPageRange.textContent = `${myLibrary[i].pages} ${pagesString}`;
 
                 const buttonDiv = document.createElement('div');
 
@@ -59,12 +64,13 @@ function addBookToLibrary() {
                 // cardDeleteButton.dataset.idNumber = newBook.id;
                 cardReadButton.textContent = newBook.readCompleted ? 'Read' : 'Not Read';
 
-                cardDeleteButton.appendChild(deleteButtonImg)
+                cardDeleteButton.appendChild(deleteButtonImg);
                 buttonDiv.appendChild(cardDeleteButton);
                 buttonDiv.appendChild(cardReadButton);
-                card.appendChild(cardTitleText);
-                // card.appendChild(cardAuthorText);
-                card.appendChild(cardPageRange);
+                cardText.appendChild(cardTitleText);
+                cardText.appendChild(cardAuthorText);
+                cardText.appendChild(cardPageRange);
+                card.appendChild(cardText);
                 card.appendChild(buttonDiv);
                 cards.appendChild(card);
             }  
@@ -75,6 +81,14 @@ function addBookToLibrary() {
         document.getElementById('author').value = '';
         document.getElementById('pages').value = '';
         document.getElementById('readstat').checked = false;
+
+        if (myLibrary.length === 0) {
+            const cards = document.querySelector('.cards');
+            cards.style.backgroundImage = 'none';
+        } else {
+            const cards = document.querySelector('.cards');
+            cards.style.backgroundImage = "url(images/dark.png)";
+        }
     });
     
     
@@ -104,8 +118,22 @@ function removeBookFromLibrary() {
 
             card.parentElement.removeChild(card); 
         }
+
+
+        if (myLibrary.length === 0) {
+            const cards = document.querySelector('.cards');
+            cards.style.backgroundImage = 'none';
+        } else {
+            const cards = document.querySelector('.cards');
+            cards.style.backgroundImage = "url(images/dark.png)";
+        }
+        
     });
 }
+
+// function background() {
+    
+// }
 
 function readStatus() {
     const read = document.querySelector('.cards');
@@ -139,5 +167,5 @@ addBook.addEventListener('click', () => {
 removeBookFromLibrary();
 readStatus();
 
-
 addBookToLibrary();
+
