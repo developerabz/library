@@ -6,6 +6,8 @@ To use:
 
 1. Click or copy and paste the live url below
 2. Click the add book button in the top left corner to open a new book form
-3. In the book form, fill out the Title of your book, author, the total pages and whether you have read the book or not 
+3. In the book form, fill out the Title of your book, author, the total pages and whether you have read the book or not
+
+Note: This is only a front end interface, it does not store information to a database nor to any local storage
 
 Live: https://developerabz.github.io/library/
