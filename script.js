@@ -139,9 +139,13 @@ function readStatus() {
     const read = document.querySelector('.cards');
     // creates read or not read button for each  book
     read.addEventListener('click', (ev) => {
+        console.log(ev);
         myLibrary.forEach(book => {
                 book.readCompleted = !book.readCompleted;
-                ev.target.textContent = book.readCompleted ? 'Read' : 'Not Read';
+                if (ev.target.parentElement.parentElement.classList.contains('card')) {
+                    ev.target.textContent = book.readCompleted ? 'Read' : 'Not Read';
+
+                }
         })
     })
 }
